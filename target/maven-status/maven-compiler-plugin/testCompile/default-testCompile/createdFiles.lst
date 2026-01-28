@@ -1,0 +1,9 @@
+service\BibliotecaServiceTest$OperacionesBusqueda.class
+service\BibliotecaServiceTest.class
+service\BibliotecaServiceTest$OperacionesEliminacion.class
+integration\SistemaGestionLibrosIntegrationTest.class
+util\ValidadorUtilTest.class
+service\BibliotecaServiceTest$OperacionesActualizacion.class
+service\BibliotecaServiceTest$OperacionesAgregado.class
+model\LibroTest.class
+service\BibliotecaServiceTest$Estadisticas.class

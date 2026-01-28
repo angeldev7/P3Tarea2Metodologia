@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValidadorUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Sistema de Gestión de Biblioteca</a> &gt; <a href="index.source.html" class="el_package">util</a> &gt; <span class="el_source">ValidadorUtil.java</span></div><h1>ValidadorUtil.java</h1><pre class="source lang-java linenums">package util;
+
+import java.time.LocalDate;
+import java.util.regex.Pattern;
+
+/**
+ * Utilidades para validación de datos en el sistema.
+ */
+<span class="nc" id="L9">public class ValidadorUtil {</span>
+    
+<span class="fc" id="L11">    private static final Pattern ISBN_PATTERN = Pattern.compile(&quot;^[0-9]{10}$|^[0-9]{13}$|^[0-9]{9}[0-9X]$&quot;);</span>
+    
+    public static boolean validarISBN(String isbn) {
+<span class="fc bfc" id="L14" title="All 4 branches covered.">        if (isbn == null || isbn.trim().isEmpty()) {</span>
+<span class="fc" id="L15">            return false;</span>
+        }
+<span class="fc" id="L17">        return ISBN_PATTERN.matcher(isbn.trim()).matches();</span>
+    }
+
+
+    public static boolean validarTextoNoVacio(String texto) {
+<span class="fc bfc" id="L22" title="All 4 branches covered.">        return texto != null &amp;&amp; !texto.trim().isEmpty();</span>
+    }
+
+    /**
+     * Valida si un número es positivo
+     * @param numero el número a validar
+     * @return true si es positivo, false en caso contrario
+     */
+    public static boolean validarNumeroPositivo(int numero) {
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        return numero &gt; 0;</span>
+    }
+
+    /**
+     * Valida si un precio es válido (no negativo)
+     * @param precio el precio a validar
+     * @return true si es válido, false en caso contrario
+     */
+    public static boolean validarPrecio(double precio) {
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        return precio &gt;= 0;</span>
+    }
+
+    /**
+     * Valida si una fecha no es futura
+     * @param fecha la fecha a validar
+     * @return true si es válida, false en caso contrario
+     */
+    public static boolean validarFechaNoFutura(LocalDate fecha) {
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (fecha == null) {</span>
+<span class="fc" id="L50">            return true;</span>
+        }
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        return !fecha.isAfter(LocalDate.now());</span>
+    }
+
+    /**
+     * Limpia y normaliza un texto
+     * @param texto el texto a limpiar
+     * @return el texto limpio o cadena vacía si es nulo
+     */
+    public static String limpiarTexto(String texto) {
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        if (texto == null) {</span>
+<span class="fc" id="L62">            return &quot;&quot;;</span>
+        }
+<span class="fc" id="L64">        return texto.trim();</span>
+    }
+
+    /**
+     * Valida si un rango de páginas es válido
+     * @param paginas el número de páginas
+     * @param minimo mínimo número de páginas permitido
+     * @param maximo máximo número de páginas permitido
+     * @return true si está en el rango válido
+     */
+    public static boolean validarRangoPaginas(int paginas, int minimo, int maximo) {
+<span class="fc bfc" id="L75" title="All 4 branches covered.">        return paginas &gt;= minimo &amp;&amp; paginas &lt;= maximo;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Ejecutable.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Sistema de Gestión de Biblioteca</a> &gt; <a href="index.source.html" class="el_package">Principal</a> &gt; <span class="el_source">Ejecutable.java</span></div><h1>Ejecutable.java</h1><pre class="source lang-java linenums">package Principal;
+
+import model.Libro;
+import service.BibliotecaService;
+import util.ValidadorUtil;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+/**
+ * Clase principal que proporciona una interfaz interactiva para el sistema de gestión de biblioteca.
+ */
+<span class="nc" id="L17">public class Ejecutable {</span>
+    
+<span class="fc" id="L19">    private static BibliotecaService biblioteca = new BibliotecaService();</span>
+<span class="fc" id="L20">    private static Scanner scanner = new Scanner(System.in);</span>
+<span class="fc" id="L21">    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;dd/MM/yyyy&quot;);</span>
+
+    /**
+     * Obtiene la instancia del servicio de biblioteca para testing.
+     * @return La instancia de BibliotecaService
+     */
+    public static BibliotecaService getBiblioteca() {
+<span class="fc" id="L28">        return biblioteca;</span>
+    }
+
+    /**
+     * Reinicia la biblioteca (útil para testing).
+     */
+    public static void reiniciarBiblioteca() {
+<span class="fc" id="L35">        biblioteca = new BibliotecaService();</span>
+<span class="fc" id="L36">    }</span>
+
+    /**
+     * Obtiene el formatter de fecha utilizado por el sistema.
+     * @return El DateTimeFormatter configurado
+     */
+    public static DateTimeFormatter getFormatter() {
+<span class="fc" id="L43">        return formatter;</span>
+    }
+
+    public static void main(String[] args) {
+<span class="nc" id="L47">        System.out.println(&quot;╔════════════════════════════════════════╗&quot;);</span>
+<span class="nc" id="L48">        System.out.println(&quot;║        SISTEMA DE BIBLIOTECA          ║&quot;);</span>
+<span class="nc" id="L49">        System.out.println(&quot;║          ¡Bienvenido!                 ║&quot;);</span>
+<span class="nc" id="L50">        System.out.println(&quot;╚════════════════════════════════════════╝&quot;);</span>
+        
+<span class="nc" id="L52">        cargarLibrosEjemplo();</span>
+<span class="nc" id="L53">        mostrarMenuPrincipal();</span>
+        
+<span class="nc" id="L55">        System.out.println(&quot;\n¡Gracias por usar el Sistema de Biblioteca!&quot;);</span>
+<span class="nc" id="L56">        scanner.close();</span>
+<span class="nc" id="L57">    }</span>
+    
+    public static void cargarLibrosEjemplo() {
+<span class="fc" id="L60">        Libro libro1 = new Libro(&quot;978-0134685991&quot;, &quot;Effective Java&quot;, &quot;Joshua Bloch&quot;, </span>
+<span class="fc" id="L61">                                 LocalDate.of(2017, 12, 27), 412, 45.99);</span>
+        
+<span class="fc" id="L63">        Libro libro2 = new Libro(&quot;978-0596009205&quot;, &quot;Head First Design Patterns&quot;, </span>
+<span class="fc" id="L64">                                 &quot;Eric Freeman&quot;, LocalDate.of(2004, 10, 25), 694, 39.99);</span>
+        
+<span class="fc" id="L66">        Libro libro3 = new Libro(&quot;978-0321356680&quot;, &quot;Effective C++&quot;, </span>
+<span class="fc" id="L67">                                 &quot;Scott Meyers&quot;, LocalDate.of(2005, 5, 22), 297, 42.50);</span>
+        
+<span class="fc" id="L69">        biblioteca.agregarLibro(libro1);</span>
+<span class="fc" id="L70">        biblioteca.agregarLibro(libro2);</span>
+<span class="fc" id="L71">        biblioteca.agregarLibro(libro3);</span>
+        
+<span class="fc" id="L73">        System.out.println(&quot;✓ Se han cargado &quot; + biblioteca.obtenerTotalLibros() + &quot; libros de ejemplo.\n&quot;);</span>
+<span class="fc" id="L74">    }</span>
+    
+    private static void mostrarMenuPrincipal() {
+<span class="nc" id="L77">        boolean continuar = true;</span>
+        
+<span class="nc bnc" id="L79" title="All 2 branches missed.">        while (continuar) {</span>
+<span class="nc" id="L80">            System.out.println(&quot;\n┌─────────────────────────────────────┐&quot;);</span>
+<span class="nc" id="L81">            System.out.println(&quot;│             MENÚ PRINCIPAL          │&quot;);</span>
+<span class="nc" id="L82">            System.out.println(&quot;├─────────────────────────────────────┤&quot;);</span>
+<span class="nc" id="L83">            System.out.println(&quot;│ 1. Agregar libro                    │&quot;);</span>
+<span class="nc" id="L84">            System.out.println(&quot;│ 2. Buscar libros                    │&quot;);</span>
+<span class="nc" id="L85">            System.out.println(&quot;│ 3. Listar todos los libros          │&quot;);</span>
+<span class="nc" id="L86">            System.out.println(&quot;│ 4. Ver estadísticas                 │&quot;);</span>
+<span class="nc" id="L87">            System.out.println(&quot;│ 5. Mostrar libro con descuento      │&quot;);</span>
+<span class="nc" id="L88">            System.out.println(&quot;│ 6. Demo de validaciones             │&quot;);</span>
+<span class="nc" id="L89">            System.out.println(&quot;│ 0. Salir                            │&quot;);</span>
+<span class="nc" id="L90">            System.out.println(&quot;└─────────────────────────────────────┘&quot;);</span>
+<span class="nc" id="L91">            System.out.print(&quot;Seleccione una opción: &quot;);</span>
+            
+            try {
+<span class="nc" id="L94">                int opcion = Integer.parseInt(scanner.nextLine().trim());</span>
+                
+<span class="nc bnc" id="L96" title="All 8 branches missed.">                switch (opcion) {</span>
+                    case 1:
+<span class="nc" id="L98">                        agregarLibroInteractivo();</span>
+<span class="nc" id="L99">                        break;</span>
+                    case 2:
+<span class="nc" id="L101">                        menuBusquedas();</span>
+<span class="nc" id="L102">                        break;</span>
+                    case 3:
+<span class="nc" id="L104">                        listarTodosLosLibros();</span>
+<span class="nc" id="L105">                        break;</span>
+                    case 4:
+<span class="nc" id="L107">                        mostrarEstadisticas();</span>
+<span class="nc" id="L108">                        break;</span>
+                    case 5:
+<span class="nc" id="L110">                        mostrarLibroConDescuento();</span>
+<span class="nc" id="L111">                        break;</span>
+                    case 6:
+<span class="nc" id="L113">                        demostrarValidaciones();</span>
+<span class="nc" id="L114">                        break;</span>
+                    case 0:
+<span class="nc" id="L116">                        continuar = false;</span>
+<span class="nc" id="L117">                        break;</span>
+                    default:
+<span class="nc" id="L119">                        System.out.println(&quot;❌ Opción no válida. Por favor, intente nuevamente.&quot;);</span>
+                }
+<span class="nc" id="L121">            } catch (NumberFormatException e) {</span>
+<span class="nc" id="L122">                System.out.println(&quot;❌ Por favor, ingrese un número válido.&quot;);</span>
+            }
+        }
+<span class="nc" id="L125">    }</span>
+    
+    private static void agregarLibroInteractivo() {
+<span class="nc" id="L128">        System.out.println(&quot;\n═══ AGREGAR NUEVO LIBRO ═══&quot;);</span>
+        
+        try {
+<span class="nc" id="L131">            System.out.print(&quot;ISBN: &quot;);</span>
+<span class="nc" id="L132">            String isbn = scanner.nextLine().trim();</span>
+            
+<span class="nc bnc" id="L134" title="All 2 branches missed.">            if (!ValidadorUtil.validarISBN(isbn)) {</span>
+<span class="nc" id="L135">                System.out.println(&quot;❌ ISBN no válido. Formato esperado: 978-XXXXXXXXX o XXX-XXX-XXX&quot;);</span>
+<span class="nc" id="L136">                return;</span>
+            }
+            
+<span class="nc bnc" id="L139" title="All 2 branches missed.">            if (biblioteca.buscarPorIsbn(isbn) != null) {</span>
+<span class="nc" id="L140">                System.out.println(&quot;❌ Ya existe un libro con este ISBN.&quot;);</span>
+<span class="nc" id="L141">                return;</span>
+            }
+            
+<span class="nc" id="L144">            System.out.print(&quot;Título: &quot;);</span>
+<span class="nc" id="L145">            String titulo = scanner.nextLine().trim();</span>
+            
+<span class="nc bnc" id="L147" title="All 2 branches missed.">            if (!ValidadorUtil.validarTextoNoVacio(titulo)) {</span>
+<span class="nc" id="L148">                System.out.println(&quot;❌ El título no puede estar vacío.&quot;);</span>
+<span class="nc" id="L149">                return;</span>
+            }
+            
+<span class="nc" id="L152">            System.out.print(&quot;Autor: &quot;);</span>
+<span class="nc" id="L153">            String autor = scanner.nextLine().trim();</span>
+            
+<span class="nc bnc" id="L155" title="All 2 branches missed.">            if (!ValidadorUtil.validarTextoNoVacio(autor)) {</span>
+<span class="nc" id="L156">                System.out.println(&quot;❌ El autor no puede estar vacío.&quot;);</span>
+<span class="nc" id="L157">                return;</span>
+            }
+            
+<span class="nc" id="L160">            System.out.print(&quot;Número de páginas: &quot;);</span>
+<span class="nc" id="L161">            int numPaginas = Integer.parseInt(scanner.nextLine().trim());</span>
+            
+<span class="nc bnc" id="L163" title="All 2 branches missed.">            if (numPaginas &lt;= 0) {</span>
+<span class="nc" id="L164">                System.out.println(&quot;❌ El número de páginas debe ser positivo.&quot;);</span>
+<span class="nc" id="L165">                return;</span>
+            }
+            
+<span class="nc" id="L168">            System.out.print(&quot;Precio: $&quot;);</span>
+<span class="nc" id="L169">            double precio = Double.parseDouble(scanner.nextLine().trim());</span>
+            
+<span class="nc bnc" id="L171" title="All 2 branches missed.">            if (!ValidadorUtil.validarPrecio(precio)) {</span>
+<span class="nc" id="L172">                System.out.println(&quot;❌ El precio debe ser un número positivo.&quot;);</span>
+<span class="nc" id="L173">                return;</span>
+            }
+            
+<span class="nc" id="L176">            System.out.print(&quot;Fecha de publicación (dd/MM/yyyy): &quot;);</span>
+<span class="nc" id="L177">            String fechaStr = scanner.nextLine().trim();</span>
+<span class="nc" id="L178">            LocalDate fecha = LocalDate.parse(fechaStr, formatter);</span>
+            
+<span class="nc" id="L180">            Libro nuevoLibro = new Libro(isbn, titulo, autor, fecha, numPaginas, precio);</span>
+<span class="nc" id="L181">            boolean agregado = biblioteca.agregarLibro(nuevoLibro);</span>
+            
+<span class="nc bnc" id="L183" title="All 2 branches missed.">            if (agregado) {</span>
+<span class="nc" id="L184">                System.out.println(&quot;✅ Libro agregado exitosamente!&quot;);</span>
+<span class="nc" id="L185">                System.out.println(&quot;📖 &quot; + nuevoLibro.getTitulo() + &quot; por &quot; + nuevoLibro.getAutor());</span>
+<span class="nc" id="L186">                System.out.println(&quot;📄 &quot; + numPaginas + &quot; páginas - $&quot; + String.format(&quot;%.2f&quot;, precio));</span>
+<span class="nc" id="L187">            } else {</span>
+<span class="nc" id="L188">                System.out.println(&quot;❌ Error al agregar el libro.&quot;);</span>
+            }
+            
+<span class="nc" id="L191">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L192">            System.out.println(&quot;❌ Error: El precio o número de páginas debe ser un número válido.&quot;);</span>
+<span class="nc" id="L193">        } catch (DateTimeParseException e) {</span>
+<span class="nc" id="L194">            System.out.println(&quot;❌ Error: Formato de fecha incorrecto. Use dd/MM/yyyy&quot;);</span>
+<span class="nc" id="L195">        } catch (Exception e) {</span>
+<span class="nc" id="L196">            System.out.println(&quot;❌ Error inesperado: &quot; + e.getMessage());</span>
+        }
+<span class="nc" id="L198">    }</span>
+    
+    private static void menuBusquedas() {
+<span class="nc" id="L201">        System.out.println(&quot;\n═══ BUSCAR LIBROS ═══&quot;);</span>
+<span class="nc" id="L202">        System.out.println(&quot;1. Buscar por ISBN&quot;);</span>
+<span class="nc" id="L203">        System.out.println(&quot;2. Buscar por título&quot;);</span>
+<span class="nc" id="L204">        System.out.println(&quot;3. Buscar por autor&quot;);</span>
+<span class="nc" id="L205">        System.out.println(&quot;0. Volver al menú principal&quot;);</span>
+<span class="nc" id="L206">        System.out.print(&quot;Seleccione tipo de búsqueda: &quot;);</span>
+        
+        try {
+<span class="nc" id="L209">            int opcion = Integer.parseInt(scanner.nextLine().trim());</span>
+            
+<span class="nc bnc" id="L211" title="All 5 branches missed.">            switch (opcion) {</span>
+                case 1:
+<span class="nc" id="L213">                    buscarPorIsbn();</span>
+<span class="nc" id="L214">                    break;</span>
+                case 2:
+<span class="nc" id="L216">                    buscarPorTitulo();</span>
+<span class="nc" id="L217">                    break;</span>
+                case 3:
+<span class="nc" id="L219">                    buscarPorAutor();</span>
+<span class="nc" id="L220">                    break;</span>
+                case 0:
+<span class="nc" id="L222">                    return;</span>
+                default:
+<span class="nc" id="L224">                    System.out.println(&quot;❌ Opción no válida.&quot;);</span>
+            }
+<span class="nc" id="L226">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L227">            System.out.println(&quot;❌ Por favor, ingrese un número válido.&quot;);</span>
+        }
+<span class="nc" id="L229">    }</span>
+    
+    private static void buscarPorIsbn() {
+<span class="nc" id="L232">        System.out.print(&quot;Ingrese ISBN: &quot;);</span>
+<span class="nc" id="L233">        String isbn = scanner.nextLine().trim();</span>
+        
+<span class="nc" id="L235">        Libro libro = biblioteca.buscarPorIsbn(isbn);</span>
+<span class="nc bnc" id="L236" title="All 2 branches missed.">        if (libro != null) {</span>
+<span class="nc" id="L237">            System.out.println(&quot;\n✅ Libro encontrado:&quot;);</span>
+<span class="nc" id="L238">            mostrarDetalleLibro(libro);</span>
+<span class="nc" id="L239">        } else {</span>
+<span class="nc" id="L240">            System.out.println(&quot;❌ No se encontró ningún libro con ese ISBN.&quot;);</span>
+        }
+<span class="nc" id="L242">    }</span>
+    
+    private static void buscarPorTitulo() {
+<span class="nc" id="L245">        System.out.print(&quot;Ingrese título (o parte del título): &quot;);</span>
+<span class="nc" id="L246">        String titulo = scanner.nextLine().trim();</span>
+        
+<span class="nc" id="L248">        List&lt;Libro&gt; libros = biblioteca.buscarPorTitulo(titulo);</span>
+<span class="nc" id="L249">        mostrarResultadosBusqueda(libros, &quot;título&quot;);</span>
+<span class="nc" id="L250">    }</span>
+    
+    private static void buscarPorAutor() {
+<span class="nc" id="L253">        System.out.print(&quot;Ingrese autor (o parte del nombre): &quot;);</span>
+<span class="nc" id="L254">        String autor = scanner.nextLine().trim();</span>
+        
+<span class="nc" id="L256">        List&lt;Libro&gt; libros = biblioteca.buscarPorAutor(autor);</span>
+<span class="nc" id="L257">        mostrarResultadosBusqueda(libros, &quot;autor&quot;);</span>
+<span class="nc" id="L258">    }</span>
+    
+    private static void mostrarResultadosBusqueda(List&lt;Libro&gt; libros, String criterio) {
+<span class="nc bnc" id="L261" title="All 2 branches missed.">        if (libros.isEmpty()) {</span>
+<span class="nc" id="L262">            System.out.println(&quot;❌ No se encontraron libros con ese &quot; + criterio + &quot;.&quot;);</span>
+<span class="nc" id="L263">        } else {</span>
+<span class="nc" id="L264">            System.out.println(&quot;\n✅ Se encontraron &quot; + libros.size() + &quot; libro(s):&quot;);</span>
+<span class="nc bnc" id="L265" title="All 2 branches missed.">            for (int i = 0; i &lt; libros.size(); i++) {</span>
+<span class="nc" id="L266">                System.out.println(&quot;\n--- Libro &quot; + (i + 1) + &quot; ---&quot;);</span>
+<span class="nc" id="L267">                mostrarDetalleLibro(libros.get(i));</span>
+            }
+        }
+<span class="nc" id="L270">    }</span>
+    
+    private static void listarTodosLosLibros() {
+<span class="nc" id="L273">        System.out.println(&quot;\n═══ TODOS LOS LIBROS ═══&quot;);</span>
+<span class="nc" id="L274">        List&lt;Libro&gt; libros = biblioteca.obtenerLibrosDisponibles();</span>
+        
+<span class="nc bnc" id="L276" title="All 2 branches missed.">        if (libros.isEmpty()) {</span>
+<span class="nc" id="L277">            System.out.println(&quot;📚 No hay libros en la biblioteca.&quot;);</span>
+<span class="nc" id="L278">        } else {</span>
+<span class="nc" id="L279">            System.out.println(&quot;📚 Total de libros: &quot; + libros.size());</span>
+<span class="nc bnc" id="L280" title="All 2 branches missed.">            for (int i = 0; i &lt; libros.size(); i++) {</span>
+<span class="nc" id="L281">                System.out.println(&quot;\n--- Libro &quot; + (i + 1) + &quot; ---&quot;);</span>
+<span class="nc" id="L282">                mostrarDetalleLibro(libros.get(i));</span>
+            }
+        }
+<span class="nc" id="L285">    }</span>
+    
+    public static void mostrarDetalleLibro(Libro libro) {
+<span class="fc bfc" id="L288" title="All 2 branches covered.">        if (libro == null) {</span>
+<span class="fc" id="L289">            System.out.println(&quot;❌ No se puede mostrar el detalle: libro no válido.&quot;);</span>
+<span class="fc" id="L290">            return;</span>
+        }
+        
+<span class="fc" id="L293">        double descuento = libro.calcularDescuento();</span>
+<span class="fc" id="L294">        double precioFinal = libro.getPrecio() * (1 - descuento);</span>
+        
+<span class="fc" id="L296">        System.out.println(&quot;📖 Título: &quot; + libro.getTitulo());</span>
+<span class="fc" id="L297">        System.out.println(&quot;👤 Autor: &quot; + libro.getAutor());</span>
+<span class="fc" id="L298">        System.out.println(&quot;🏷️  ISBN: &quot; + libro.getIsbn());</span>
+<span class="fc" id="L299">        System.out.println(&quot;💰 Precio original: $&quot; + String.format(&quot;%.2f&quot;, libro.getPrecio()));</span>
+        
+<span class="pc bpc" id="L301" title="1 of 2 branches missed.">        if (descuento &gt; 0) {</span>
+<span class="fc" id="L302">            System.out.println(&quot;🎯 Descuento: &quot; + (descuento * 100) + &quot;%&quot;);</span>
+<span class="fc" id="L303">            System.out.println(&quot;💸 Precio con descuento: $&quot; + String.format(&quot;%.2f&quot;, precioFinal));</span>
+        }
+        
+<span class="fc" id="L306">        System.out.println(&quot;📅 Fecha publicación: &quot; + libro.getFechaPublicacion().format(formatter));</span>
+<span class="fc" id="L307">    }</span>
+    
+    private static void mostrarEstadisticas() {
+<span class="nc" id="L310">        System.out.println(&quot;\n═══ ESTADÍSTICAS DE LA BIBLIOTECA ═══&quot;);</span>
+        
+<span class="nc" id="L312">        Map&lt;String, Object&gt; stats = biblioteca.obtenerEstadisticas();</span>
+        
+<span class="nc" id="L314">        System.out.println(&quot;📚 Total de libros: &quot; + stats.get(&quot;totalLibros&quot;));</span>
+<span class="nc" id="L315">        System.out.println(&quot;📖 Libros disponibles: &quot; + stats.get(&quot;librosDisponibles&quot;));</span>
+        
+<span class="nc bnc" id="L317" title="All 2 branches missed.">        if ((Integer) stats.get(&quot;totalLibros&quot;) &gt; 0) {</span>
+<span class="nc" id="L318">            System.out.println(&quot;💰 Precio promedio: $&quot; + String.format(&quot;%.2f&quot;, stats.get(&quot;precioPromedio&quot;)));</span>
+            
+<span class="nc" id="L320">            List&lt;Libro&gt; libros = biblioteca.obtenerLibrosDisponibles();</span>
+<span class="nc" id="L321">            Libro masCaro = libros.get(0);</span>
+<span class="nc" id="L322">            Libro masBarato = libros.get(0);</span>
+            
+<span class="nc bnc" id="L324" title="All 2 branches missed.">            for (Libro libro : libros) {</span>
+<span class="nc bnc" id="L325" title="All 2 branches missed.">                if (libro.getPrecio() &gt; masCaro.getPrecio()) {</span>
+<span class="nc" id="L326">                    masCaro = libro;</span>
+                }
+<span class="nc bnc" id="L328" title="All 2 branches missed.">                if (libro.getPrecio() &lt; masBarato.getPrecio()) {</span>
+<span class="nc" id="L329">                    masBarato = libro;</span>
+                }
+            }
+            
+<span class="nc" id="L333">            System.out.println(&quot;🏆 Libro más caro: &quot; + masCaro.getTitulo() + &quot; ($&quot; + String.format(&quot;%.2f&quot;, masCaro.getPrecio()) + &quot;)&quot;);</span>
+<span class="nc" id="L334">            System.out.println(&quot;💸 Libro más barato: &quot; + masBarato.getTitulo() + &quot; ($&quot; + String.format(&quot;%.2f&quot;, masBarato.getPrecio()) + &quot;)&quot;);</span>
+        }
+<span class="nc" id="L336">    }</span>
+    
+    private static void mostrarLibroConDescuento() {
+<span class="nc" id="L339">        System.out.println(&quot;\n═══ LIBROS CON DESCUENTO ═══&quot;);</span>
+<span class="nc" id="L340">        List&lt;Libro&gt; libros = biblioteca.obtenerLibrosDisponibles();</span>
+<span class="nc" id="L341">        boolean hayDescuentos = false;</span>
+        
+<span class="nc bnc" id="L343" title="All 2 branches missed.">        for (Libro libro : libros) {</span>
+<span class="nc" id="L344">            double descuento = libro.calcularDescuento();</span>
+<span class="nc bnc" id="L345" title="All 2 branches missed.">            if (descuento &gt; 0) {</span>
+<span class="nc bnc" id="L346" title="All 2 branches missed.">                if (!hayDescuentos) {</span>
+<span class="nc" id="L347">                    System.out.println(&quot;🎯 Libros con descuento disponible:&quot;);</span>
+<span class="nc" id="L348">                    hayDescuentos = true;</span>
+                }
+<span class="nc" id="L350">                System.out.println(&quot;\n📖 &quot; + libro.getTitulo());</span>
+<span class="nc" id="L351">                System.out.println(&quot;   Descuento: &quot; + (descuento * 100) + &quot;%&quot;);</span>
+<span class="nc" id="L352">                System.out.println(&quot;   Precio original: $&quot; + String.format(&quot;%.2f&quot;, libro.getPrecio()));</span>
+<span class="nc" id="L353">                System.out.println(&quot;   Precio con descuento: $&quot; + String.format(&quot;%.2f&quot;, libro.getPrecio() * (1 - descuento)));</span>
+            }
+        }
+        
+<span class="nc bnc" id="L357" title="All 2 branches missed.">        if (!hayDescuentos) {</span>
+<span class="nc" id="L358">            System.out.println(&quot;❌ No hay libros con descuento disponible en este momento.&quot;);</span>
+<span class="nc" id="L359">            System.out.println(&quot;💡 Los libros con 5+ años tienen 15% de descuento&quot;);</span>
+<span class="nc" id="L360">            System.out.println(&quot;💡 Los libros con 10+ años tienen 30% de descuento&quot;);</span>
+        }
+<span class="nc" id="L362">    }</span>
+    
+    private static void demostrarValidaciones() {
+<span class="nc" id="L365">        System.out.println(&quot;\n═══ DEMOSTRACIÓN DE VALIDACIONES ═══&quot;);</span>
+        
+<span class="nc" id="L367">        String isbnValido = &quot;978-0134685991&quot;;</span>
+<span class="nc" id="L368">        String isbnInvalido = &quot;123-456-789&quot;;</span>
+        
+<span class="nc" id="L370">        System.out.println(&quot;📝 Validación de ISBN:&quot;);</span>
+<span class="nc" id="L371">        System.out.println(&quot;  ✅ &quot; + isbnValido + &quot; - Válido: &quot; + ValidadorUtil.validarISBN(isbnValido));</span>
+<span class="nc" id="L372">        System.out.println(&quot;  ❌ &quot; + isbnInvalido + &quot; - Válido: &quot; + ValidadorUtil.validarISBN(isbnInvalido));</span>
+        
+<span class="nc" id="L374">        System.out.println(&quot;\n📝 Validación de texto:&quot;);</span>
+<span class="nc" id="L375">        System.out.println(&quot;  ✅ 'Effective Java' - Válido: &quot; + ValidadorUtil.validarTextoNoVacio(&quot;Effective Java&quot;));</span>
+<span class="nc" id="L376">        System.out.println(&quot;  ❌ '' (vacío) - Válido: &quot; + ValidadorUtil.validarTextoNoVacio(&quot;&quot;));</span>
+<span class="nc" id="L377">        System.out.println(&quot;  ❌ '   ' (espacios) - Válido: &quot; + ValidadorUtil.validarTextoNoVacio(&quot;   &quot;));</span>
+        
+<span class="nc" id="L379">        System.out.println(&quot;\n📝 Validación de números:&quot;);</span>
+<span class="nc" id="L380">        System.out.println(&quot;  ✅ 45.99 - Válido: &quot; + ValidadorUtil.validarPrecio(45.99));</span>
+<span class="nc" id="L381">        System.out.println(&quot;  ❌ -10.5 - Válido: &quot; + ValidadorUtil.validarPrecio(-10.5));</span>
+<span class="nc" id="L382">        System.out.println(&quot;  ❌ 0 - Válido: &quot; + ValidadorUtil.validarNumeroPositivo(0));</span>
+        
+<span class="nc" id="L384">        LocalDate fechaValida = LocalDate.of(2020, 1, 15);</span>
+<span class="nc" id="L385">        LocalDate fechaFutura = LocalDate.now().plusDays(30);</span>
+        
+<span class="nc" id="L387">        System.out.println(&quot;\n📝 Validación de fechas:&quot;);</span>
+<span class="nc" id="L388">        System.out.println(&quot;  ✅ &quot; + fechaValida.format(formatter) + &quot; - Válida: &quot; + ValidadorUtil.validarFechaNoFutura(fechaValida));</span>
+<span class="nc" id="L389">        System.out.println(&quot;  ❌ &quot; + fechaFutura.format(formatter) + &quot; (futura) - Válida: &quot; + ValidadorUtil.validarFechaNoFutura(fechaFutura));</span>
+        
+<span class="nc" id="L391">        System.out.println(&quot;\n💡 Presione Enter para continuar...&quot;);</span>
+<span class="nc" id="L392">        scanner.nextLine();</span>
+<span class="nc" id="L393">    }</span>
+    
+    private static void mostrarDespedida() {
+<span class="nc" id="L396">        System.out.println(&quot;\n┌─────────────────────────────────────┐&quot;);</span>
+<span class="nc" id="L397">        System.out.println(&quot;│      ¡Gracias por usar el Sistema   │&quot;);</span>
+<span class="nc" id="L398">        System.out.println(&quot;│         de Biblioteca Digital!      │&quot;);</span>
+<span class="nc" id="L399">        System.out.println(&quot;│                                     │&quot;);</span>
+<span class="nc" id="L400">        System.out.println(&quot;│        📚 Hasta la próxima 📚       │&quot;);</span>
+<span class="nc" id="L401">        System.out.println(&quot;└─────────────────────────────────────┘&quot;);</span>
+<span class="nc" id="L402">    }</span>
+
+    // ========== MÉTODOS DE UTILIDAD PARA TESTING ==========
+    
+    /**
+     * Valida si un libro es completo y válido para el sistema.
+     * @param libro El libro a validar
+     * @return true si el libro es válido, false en caso contrario
+     */
+    public static boolean validarLibroCompleto(Libro libro) {
+<span class="fc bfc" id="L412" title="All 2 branches covered.">        if (libro == null) return false;</span>
+        
+<span class="fc bfc" id="L414" title="All 2 branches covered.">        return ValidadorUtil.validarTextoNoVacio(libro.getIsbn()) &amp;&amp;</span>
+<span class="pc bpc" id="L415" title="1 of 2 branches missed.">               ValidadorUtil.validarTextoNoVacio(libro.getTitulo()) &amp;&amp;</span>
+<span class="pc bpc" id="L416" title="1 of 2 branches missed.">               ValidadorUtil.validarTextoNoVacio(libro.getAutor()) &amp;&amp;</span>
+<span class="pc bpc" id="L417" title="1 of 2 branches missed.">               libro.getFechaPublicacion() != null &amp;&amp;</span>
+<span class="fc bfc" id="L418" title="All 2 branches covered.">               ValidadorUtil.validarFechaNoFutura(libro.getFechaPublicacion()) &amp;&amp;</span>
+<span class="pc bpc" id="L419" title="1 of 2 branches missed.">               ValidadorUtil.validarNumeroPositivo(libro.getNumeroPaginas()) &amp;&amp;</span>
+<span class="pc bpc" id="L420" title="1 of 2 branches missed.">               ValidadorUtil.validarPrecio(libro.getPrecio());</span>
+    }
+
+    /**
+     * Calcula estadísticas básicas del sistema.
+     * @return Map con las estadísticas del sistema
+     */
+    public static Map&lt;String, Object&gt; obtenerEstadisticasSistema() {
+<span class="fc" id="L428">        Map&lt;String, Object&gt; stats = biblioteca.obtenerEstadisticas();</span>
+        
+<span class="fc bfc" id="L430" title="All 2 branches covered.">        if (biblioteca.obtenerTotalLibros() &gt; 0) {</span>
+            // Encontrar libro más caro y más barato
+<span class="fc" id="L432">            Libro libroMasCaro = null;</span>
+<span class="fc" id="L433">            Libro libroMasBarato = null;</span>
+<span class="fc" id="L434">            double precioMaximo = Double.MIN_VALUE;</span>
+<span class="fc" id="L435">            double precioMinimo = Double.MAX_VALUE;</span>
+            
+<span class="fc bfc" id="L437" title="All 2 branches covered.">            for (Libro libro : biblioteca.obtenerLibrosDisponibles()) {</span>
+<span class="fc bfc" id="L438" title="All 2 branches covered.">                if (libro.getPrecio() &gt; precioMaximo) {</span>
+<span class="fc" id="L439">                    precioMaximo = libro.getPrecio();</span>
+<span class="fc" id="L440">                    libroMasCaro = libro;</span>
+                }
+<span class="fc bfc" id="L442" title="All 2 branches covered.">                if (libro.getPrecio() &lt; precioMinimo) {</span>
+<span class="fc" id="L443">                    precioMinimo = libro.getPrecio();</span>
+<span class="fc" id="L444">                    libroMasBarato = libro;</span>
+                }
+            }
+            
+<span class="fc" id="L448">            stats.put(&quot;libroMasCaro&quot;, libroMasCaro);</span>
+<span class="fc" id="L449">            stats.put(&quot;libroMasBarato&quot;, libroMasBarato);</span>
+<span class="fc" id="L450">        } else {</span>
+<span class="fc" id="L451">            stats.put(&quot;libroMasCaro&quot;, null);</span>
+<span class="fc" id="L452">            stats.put(&quot;libroMasBarato&quot;, null);</span>
+        }
+        
+<span class="fc" id="L455">        return stats;</span>
+    }
+
+    /**
+     * Verifica si el sistema tiene libros cargados.
+     * @return true si hay al menos un libro, false en caso contrario
+     */
+    public static boolean tieneLibrosCargados() {
+<span class="fc bfc" id="L463" title="All 2 branches covered.">        return biblioteca.obtenerTotalLibros() &gt; 0;</span>
+    }
+
+    /**
+     * Busca libros por múltiples criterios.
+     * @param isbn ISBN a buscar (puede ser null)
+     * @param titulo Título a buscar (puede ser null)
+     * @param autor Autor a buscar (puede ser null)
+     * @return Lista de libros que coinciden con los criterios
+     */
+    public static List&lt;Libro&gt; buscarLibrosMultiplesCriterios(String isbn, String titulo, String autor) {
+<span class="fc" id="L474">        List&lt;Libro&gt; resultados = new java.util.ArrayList&lt;&gt;();</span>
+        
+<span class="fc bfc" id="L476" title="All 2 branches covered.">        if (ValidadorUtil.validarTextoNoVacio(isbn)) {</span>
+<span class="fc" id="L477">            Libro libroPorIsbn = biblioteca.buscarPorIsbn(isbn);</span>
+<span class="pc bpc" id="L478" title="1 of 2 branches missed.">            if (libroPorIsbn != null) {</span>
+<span class="fc" id="L479">                resultados.add(libroPorIsbn);</span>
+            }
+        }
+        
+<span class="fc bfc" id="L483" title="All 2 branches covered.">        if (ValidadorUtil.validarTextoNoVacio(titulo)) {</span>
+<span class="fc" id="L484">            List&lt;Libro&gt; librosPorTitulo = biblioteca.buscarPorTitulo(titulo);</span>
+<span class="fc bfc" id="L485" title="All 2 branches covered.">            for (Libro libro : librosPorTitulo) {</span>
+<span class="fc bfc" id="L486" title="All 2 branches covered.">                if (!resultados.contains(libro)) {</span>
+<span class="fc" id="L487">                    resultados.add(libro);</span>
+                }
+            }
+        }
+        
+<span class="fc bfc" id="L492" title="All 2 branches covered.">        if (ValidadorUtil.validarTextoNoVacio(autor)) {</span>
+<span class="fc" id="L493">            List&lt;Libro&gt; librosPorAutor = biblioteca.buscarPorAutor(autor);</span>
+<span class="fc bfc" id="L494" title="All 2 branches covered.">            for (Libro libro : librosPorAutor) {</span>
+<span class="fc bfc" id="L495" title="All 2 branches covered.">                if (!resultados.contains(libro)) {</span>
+<span class="fc" id="L496">                    resultados.add(libro);</span>
+                }
+            }
+        }
+        
+<span class="fc" id="L501">        return resultados;</span>
+    }
+
+    /**
+     * Genera un reporte resumen del estado del sistema.
+     * @return String con el reporte formateado
+     */
+    public static String generarReporteSistema() {
+<span class="fc" id="L509">        StringBuilder reporte = new StringBuilder();</span>
+<span class="fc" id="L510">        Map&lt;String, Object&gt; stats = obtenerEstadisticasSistema();</span>
+        
+<span class="fc" id="L512">        reporte.append(&quot;=== REPORTE DEL SISTEMA ===\n&quot;);</span>
+<span class="fc" id="L513">        reporte.append(&quot;Total de libros: &quot;).append(stats.get(&quot;totalLibros&quot;)).append(&quot;\n&quot;);</span>
+        
+<span class="fc" id="L515">        Integer totalLibros = (Integer) stats.get(&quot;totalLibros&quot;);</span>
+<span class="pc bpc" id="L516" title="1 of 4 branches missed.">        if (totalLibros != null &amp;&amp; totalLibros &gt; 0) {</span>
+<span class="fc" id="L517">            Libro masCaro = (Libro) stats.get(&quot;libroMasCaro&quot;);</span>
+<span class="fc" id="L518">            Libro masBarato = (Libro) stats.get(&quot;libroMasBarato&quot;);</span>
+            
+<span class="pc bpc" id="L520" title="2 of 4 branches missed.">            if (masCaro != null &amp;&amp; masBarato != null) {</span>
+<span class="fc" id="L521">                reporte.append(&quot;Libro más caro: &quot;).append(masCaro.getTitulo())</span>
+<span class="fc" id="L522">                       .append(&quot; ($&quot;).append(masCaro.getPrecio()).append(&quot;)\n&quot;);</span>
+<span class="fc" id="L523">                reporte.append(&quot;Libro más barato: &quot;).append(masBarato.getTitulo())</span>
+<span class="fc" id="L524">                       .append(&quot; ($&quot;).append(masBarato.getPrecio()).append(&quot;)\n&quot;);</span>
+            }
+            
+<span class="fc" id="L527">            Object precioPromedio = stats.get(&quot;precioPromedio&quot;);</span>
+<span class="pc bpc" id="L528" title="1 of 2 branches missed.">            if (precioPromedio != null) {</span>
+<span class="fc" id="L529">                reporte.append(&quot;Precio promedio: $&quot;).append(String.format(&quot;%.2f&quot;, precioPromedio)).append(&quot;\n&quot;);</span>
+            }
+<span class="fc" id="L531">        } else {</span>
+<span class="fc" id="L532">            reporte.append(&quot;No hay libros en el sistema\n&quot;);</span>
+        }
+        
+<span class="fc" id="L535">        return reporte.toString();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

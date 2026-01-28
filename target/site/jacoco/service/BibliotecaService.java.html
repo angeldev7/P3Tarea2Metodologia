@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BibliotecaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Sistema de Gestión de Biblioteca</a> &gt; <a href="index.source.html" class="el_package">service</a> &gt; <span class="el_source">BibliotecaService.java</span></div><h1>BibliotecaService.java</h1><pre class="source lang-java linenums">package service;
+
+import model.Libro;
+import java.util.*;
+import java.util.stream.Collectors;
+
+/**
+ * Servicio que maneja la lógica de negocio para la gestión de libros.
+ * Implementa operaciones CRUD y búsquedas avanzadas.
+ */
+public class BibliotecaService {
+    private Map&lt;String, Libro&gt; biblioteca;
+
+<span class="fc" id="L14">    public BibliotecaService() {</span>
+<span class="fc" id="L15">        this.biblioteca = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L16">    }</span>
+
+    public boolean agregarLibro(Libro libro) {
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        if (libro == null) {</span>
+<span class="fc" id="L20">            throw new IllegalArgumentException(&quot;El libro no puede ser nulo&quot;);</span>
+        }
+        
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (!libro.esValido()) {</span>
+<span class="fc" id="L24">            throw new IllegalArgumentException(&quot;El libro no contiene información válida&quot;);</span>
+        }
+
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        if (biblioteca.containsKey(libro.getIsbn())) {</span>
+<span class="fc" id="L28">            return false; // Ya existe</span>
+        }
+
+<span class="fc" id="L31">        biblioteca.put(libro.getIsbn(), libro);</span>
+<span class="fc" id="L32">        return true;</span>
+    }
+
+    /**
+     * Busca un libro por ISBN
+     * @param isbn el ISBN a buscar
+     * @return el libro encontrado o null si no existe
+     */
+    public Libro buscarPorIsbn(String isbn) {
+<span class="fc bfc" id="L41" title="All 4 branches covered.">        if (isbn == null || isbn.trim().isEmpty()) {</span>
+<span class="fc" id="L42">            throw new IllegalArgumentException(&quot;ISBN no puede estar vacío&quot;);</span>
+        }
+<span class="fc" id="L44">        return biblioteca.get(isbn);</span>
+    }
+
+    /**
+     * Busca libros por título (búsqueda parcial, case-insensitive)
+     * @param titulo el título o parte del título a buscar
+     * @return lista de libros que coinciden
+     */
+    public List&lt;Libro&gt; buscarPorTitulo(String titulo) {
+<span class="fc bfc" id="L53" title="All 4 branches covered.">        if (titulo == null || titulo.trim().isEmpty()) {</span>
+<span class="fc" id="L54">            return new ArrayList&lt;&gt;();</span>
+        }
+        
+<span class="fc" id="L57">        String tituloLower = titulo.toLowerCase();</span>
+<span class="fc" id="L58">        return biblioteca.values().stream()</span>
+<span class="fc" id="L59">                .filter(libro -&gt; libro.getTitulo().toLowerCase().contains(tituloLower))</span>
+<span class="fc" id="L60">                .collect(Collectors.toList());</span>
+    }
+
+    /**
+     * Busca libros por autor (búsqueda parcial, case-insensitive)
+     * @param autor el autor o parte del nombre a buscar
+     * @return lista de libros del autor
+     */
+    public List&lt;Libro&gt; buscarPorAutor(String autor) {
+<span class="fc bfc" id="L69" title="All 4 branches covered.">        if (autor == null || autor.trim().isEmpty()) {</span>
+<span class="fc" id="L70">            return new ArrayList&lt;&gt;();</span>
+        }
+        
+<span class="fc" id="L73">        String autorLower = autor.toLowerCase();</span>
+<span class="fc" id="L74">        return biblioteca.values().stream()</span>
+<span class="fc" id="L75">                .filter(libro -&gt; libro.getAutor().toLowerCase().contains(autorLower))</span>
+<span class="fc" id="L76">                .collect(Collectors.toList());</span>
+    }
+
+    /**
+     * Obtiene todos los libros disponibles
+     * @return lista de libros disponibles
+     */
+    public List&lt;Libro&gt; obtenerLibrosDisponibles() {
+<span class="fc" id="L84">        return biblioteca.values().stream()</span>
+<span class="fc" id="L85">                .filter(Libro::isDisponible)</span>
+<span class="fc" id="L86">                .collect(Collectors.toList());</span>
+    }
+
+    /**
+     * Actualiza la información de un libro existente
+     * @param isbn el ISBN del libro a actualizar
+     * @param libroActualizado los nuevos datos del libro
+     * @return true si se actualizó, false si no existe
+     */
+    public boolean actualizarLibro(String isbn, Libro libroActualizado) {
+<span class="fc bfc" id="L96" title="All 4 branches covered.">        if (isbn == null || libroActualizado == null) {</span>
+<span class="fc" id="L97">            throw new IllegalArgumentException(&quot;ISBN y libro no pueden ser nulos&quot;);</span>
+        }
+        
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">        if (!libroActualizado.esValido()) {</span>
+<span class="nc" id="L101">            throw new IllegalArgumentException(&quot;El libro actualizado no es válido&quot;);</span>
+        }
+
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        if (!biblioteca.containsKey(isbn)) {</span>
+<span class="fc" id="L105">            return false;</span>
+        }
+
+<span class="fc" id="L108">        libroActualizado.setIsbn(isbn);</span>
+<span class="fc" id="L109">        biblioteca.put(isbn, libroActualizado);</span>
+<span class="fc" id="L110">        return true;</span>
+    }
+
+    /**
+     * Elimina un libro de la biblioteca
+     * @param isbn el ISBN del libro a eliminar
+     * @return true si se eliminó, false si no existía
+     */
+    public boolean eliminarLibro(String isbn) {
+<span class="fc bfc" id="L119" title="All 4 branches covered.">        if (isbn == null || isbn.trim().isEmpty()) {</span>
+<span class="fc" id="L120">            throw new IllegalArgumentException(&quot;ISBN no puede estar vacío&quot;);</span>
+        }
+        
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        return biblioteca.remove(isbn) != null;</span>
+    }
+
+    /**
+     * Cambia el estado de disponibilidad de un libro
+     * @param isbn el ISBN del libro
+     * @param disponible el nuevo estado de disponibilidad
+     * @return true si se cambió exitosamente
+     */
+    public boolean cambiarDisponibilidad(String isbn, boolean disponible) {
+<span class="fc" id="L133">        Libro libro = buscarPorIsbn(isbn);</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">        if (libro == null) {</span>
+<span class="fc" id="L135">            return false;</span>
+        }
+        
+<span class="fc" id="L138">        libro.setDisponible(disponible);</span>
+<span class="fc" id="L139">        return true;</span>
+    }
+
+    /**
+     * Obtiene estadísticas básicas de la biblioteca
+     * @return mapa con estadísticas
+     */
+    public Map&lt;String, Object&gt; obtenerEstadisticas() {
+<span class="fc" id="L147">        Map&lt;String, Object&gt; stats = new HashMap&lt;&gt;();</span>
+        
+<span class="fc" id="L149">        int totalLibros = biblioteca.size();</span>
+<span class="fc" id="L150">        long librosDisponibles = biblioteca.values().stream()</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">                .mapToLong(libro -&gt; libro.isDisponible() ? 1 : 0)</span>
+<span class="fc" id="L152">                .sum();</span>
+        
+<span class="fc" id="L154">        double precioPromedio = biblioteca.values().stream()</span>
+<span class="fc" id="L155">                .mapToDouble(Libro::getPrecio)</span>
+<span class="fc" id="L156">                .average()</span>
+<span class="fc" id="L157">                .orElse(0.0);</span>
+
+<span class="fc" id="L159">        stats.put(&quot;totalLibros&quot;, totalLibros);</span>
+<span class="fc" id="L160">        stats.put(&quot;librosDisponibles&quot;, librosDisponibles);</span>
+<span class="fc" id="L161">        stats.put(&quot;librosNoDisponibles&quot;, totalLibros - librosDisponibles);</span>
+<span class="fc" id="L162">        stats.put(&quot;precioPromedio&quot;, Math.round(precioPromedio * 100.0) / 100.0);</span>
+        
+<span class="fc" id="L164">        return stats;</span>
+    }
+
+    /**
+     * Obtiene el número total de libros en la biblioteca
+     * @return número de libros
+     */
+    public int obtenerTotalLibros() {
+<span class="fc" id="L172">        return biblioteca.size();</span>
+    }
+
+    /**
+     * Limpia toda la biblioteca (útil para pruebas)
+     */
+    public void limpiarBiblioteca() {
+<span class="fc" id="L179">        biblioteca.clear();</span>
+<span class="fc" id="L180">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
