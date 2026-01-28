@@ -1,0 +1,60 @@
+# Dependencias
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+
+# IDE files
+.idea/
+*.iml
+*.iws
+.vscode/
+.project
+.classpath
+.settings/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Logs
+*.log
+logs/
+
+# Test reports (keep structure, ignore content for clean repo)
+# target/surefire-reports/
+# target/site/
+
+# JaCoCo
+target/jacoco.exec
+
+# Backup files
+*.bak
+*.swp
+*.tmp
+
+# Security
+*.pem
+*.key
+secrets.properties
+
+# Node modules (if any)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
