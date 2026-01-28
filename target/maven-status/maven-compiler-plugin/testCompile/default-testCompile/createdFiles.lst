@@ -1,6 +1,8 @@
 Principal\EjecutableTest$CargaDeDatosTest.class
+Principal\EjecutableTest$ValidacionAvanzadaTest.class
 service\BibliotecaServiceTest$OperacionesBusqueda.class
 service\BibliotecaServiceTest.class
+Principal\EjecutableTest$IntegracionSistemaTest.class
 service\BibliotecaServiceTest$OperacionesEliminacion.class
 integration\SistemaGestionLibrosIntegrationTest.class
 util\ValidadorUtilTest.class
@@ -11,7 +13,9 @@ Principal\EjecutableTest$ConfiguracionYUtilidadesTest.class
 service\BibliotecaServiceTest$OperacionesAgregado.class
 Principal\EjecutableTest$BusquedasMultiplesTest.class
 model\LibroTest.class
+Principal\EjecutableTest$MetodosAvanzadosTest.class
 service\BibliotecaServiceTest$Estadisticas.class
 Principal\EjecutableTest$UITest.class
 Principal\EjecutableTest$ValidacionLibrosTest.class
 Principal\EjecutableTest$ReportesTest.class
+Principal\EjecutableTest$MetodosPrivadosTest.class

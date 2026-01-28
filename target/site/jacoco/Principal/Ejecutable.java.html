@@ -102,7 +102,7 @@ import java.util.Scanner;
                 }
 <span class="nc" id="L103">            } catch (NumberFormatException e) {</span>
 <span class="nc" id="L104">                System.out.println(&quot;Por favor, ingrese un numero valido.&quot;);</span>
-            }
+<span class="nc" id="L105">            }</span>
         }
 <span class="nc" id="L107">    }</span>
     
@@ -166,7 +166,7 @@ import java.util.Scanner;
 <span class="nc" id="L166">                System.out.println(&quot;Libro agregado exitosamente!&quot;);</span>
 <span class="nc" id="L167">                System.out.println(nuevoLibro.getTitulo() + &quot; por &quot; + nuevoLibro.getAutor());</span>
 <span class="nc" id="L168">                System.out.println(numPaginas + &quot; paginas - $&quot; + String.format(&quot;%.2f&quot;, precio));</span>
-<span class="nc" id="L169">            } else {</span>
+            } else {
 <span class="nc" id="L170">                System.out.println(&quot;Error al agregar el libro.&quot;);</span>
             }
             
@@ -176,7 +176,7 @@ import java.util.Scanner;
 <span class="nc" id="L176">            System.out.println(&quot;Error: Formato de fecha incorrecto. Use dd/MM/yyyy&quot;);</span>
 <span class="nc" id="L177">        } catch (Exception e) {</span>
 <span class="nc" id="L178">            System.out.println(&quot;Error inesperado: &quot; + e.getMessage());</span>
-        }
+<span class="nc" id="L179">        }</span>
 <span class="nc" id="L180">    }</span>
     
     private static void menuBusquedas() {
@@ -207,7 +207,7 @@ import java.util.Scanner;
             }
 <span class="nc" id="L208">        } catch (NumberFormatException e) {</span>
 <span class="nc" id="L209">            System.out.println(&quot;❌ Por favor, ingrese un número válido.&quot;);</span>
-        }
+<span class="nc" id="L210">        }</span>
 <span class="nc" id="L211">    }</span>
     
     private static void buscarPorIsbn() {
@@ -218,7 +218,7 @@ import java.util.Scanner;
 <span class="nc bnc" id="L218" title="All 2 branches missed.">        if (libro != null) {</span>
 <span class="nc" id="L219">            System.out.println(&quot;\nLibro encontrado:&quot;);</span>
 <span class="nc" id="L220">            mostrarDetalleLibro(libro);</span>
-<span class="nc" id="L221">        } else {</span>
+        } else {
 <span class="nc" id="L222">            System.out.println(&quot;No se encontro ningun libro con ese ISBN.&quot;);</span>
         }
 <span class="nc" id="L224">    }</span>
@@ -242,7 +242,7 @@ import java.util.Scanner;
     private static void mostrarResultadosBusqueda(List&lt;Libro&gt; libros, String criterio) {
 <span class="nc bnc" id="L243" title="All 2 branches missed.">        if (libros.isEmpty()) {</span>
 <span class="nc" id="L244">            System.out.println(&quot;No se encontraron libros con ese &quot; + criterio + &quot;.&quot;);</span>
-<span class="nc" id="L245">        } else {</span>
+        } else {
 <span class="nc" id="L246">            System.out.println(&quot;\nSe encontraron &quot; + libros.size() + &quot; libro(s):&quot;);</span>
 <span class="nc bnc" id="L247" title="All 2 branches missed.">            for (int i = 0; i &lt; libros.size(); i++) {</span>
 <span class="nc" id="L248">                System.out.println(&quot;\n--- Libro &quot; + (i + 1) + &quot; ---&quot;);</span>
@@ -257,7 +257,7 @@ import java.util.Scanner;
         
 <span class="nc bnc" id="L258" title="All 2 branches missed.">        if (libros.isEmpty()) {</span>
 <span class="nc" id="L259">            System.out.println(&quot;No hay libros en la biblioteca.&quot;);</span>
-<span class="nc" id="L260">        } else {</span>
+        } else {
 <span class="nc" id="L261">            System.out.println(&quot;Total de libros: &quot; + libros.size());</span>
 <span class="nc bnc" id="L262" title="All 2 branches missed.">            for (int i = 0; i &lt; libros.size(); i++) {</span>
 <span class="nc" id="L263">                System.out.println(&quot;\n--- Libro &quot; + (i + 1) + &quot; ---&quot;);</span>
@@ -310,7 +310,7 @@ import java.util.Scanner;
 <span class="nc bnc" id="L310" title="All 2 branches missed.">                if (libro.getPrecio() &lt; masBarato.getPrecio()) {</span>
 <span class="nc" id="L311">                    masBarato = libro;</span>
                 }
-            }
+<span class="nc" id="L313">            }</span>
             
 <span class="nc" id="L315">            System.out.println(&quot;Libro mas caro: &quot; + masCaro.getTitulo() + &quot; ($&quot; + String.format(&quot;%.2f&quot;, masCaro.getPrecio()) + &quot;)&quot;);</span>
 <span class="nc" id="L316">            System.out.println(&quot;Libro mas barato: &quot; + masBarato.getTitulo() + &quot; ($&quot; + String.format(&quot;%.2f&quot;, masBarato.getPrecio()) + &quot;)&quot;);</span>
@@ -334,7 +334,7 @@ import java.util.Scanner;
 <span class="nc" id="L334">                System.out.println(&quot;   Precio original: $&quot; + String.format(&quot;%.2f&quot;, libro.getPrecio()));</span>
 <span class="nc" id="L335">                System.out.println(&quot;   Precio con descuento: $&quot; + String.format(&quot;%.2f&quot;, libro.getPrecio() * (1 - descuento)));</span>
             }
-        }
+<span class="nc" id="L337">        }</span>
         
 <span class="nc bnc" id="L339" title="All 2 branches missed.">        if (!hayDescuentos) {</span>
 <span class="nc" id="L340">            System.out.println(&quot;No hay libros con descuento disponible en este momento.&quot;);</span>
@@ -414,7 +414,7 @@ import java.util.Scanner;
 <span class="fc" id="L414">                    precioMinimo = libro.getPrecio();</span>
 <span class="fc" id="L415">                    libroMasBarato = libro;</span>
                 }
-            }
+<span class="fc" id="L417">            }</span>
             
 <span class="fc" id="L419">            stats.put(&quot;libroMasCaro&quot;, libroMasCaro);</span>
 <span class="fc" id="L420">            stats.put(&quot;libroMasBarato&quot;, libroMasBarato);</span>
@@ -448,7 +448,7 @@ import java.util.Scanner;
 <span class="fc bfc" id="L448" title="All 2 branches covered.">                if (!resultados.contains(libro)) {</span>
 <span class="fc" id="L449">                    resultados.add(libro);</span>
                 }
-            }
+<span class="fc" id="L451">            }</span>
         }
         
 <span class="fc bfc" id="L454" title="All 2 branches covered.">        if (ValidadorUtil.validarTextoNoVacio(autor)) {</span>
@@ -457,7 +457,7 @@ import java.util.Scanner;
 <span class="fc bfc" id="L457" title="All 2 branches covered.">                if (!resultados.contains(libro)) {</span>
 <span class="fc" id="L458">                    resultados.add(libro);</span>
                 }
-            }
+<span class="fc" id="L460">            }</span>
         }
         
 <span class="fc" id="L463">        return resultados;</span>
@@ -502,7 +502,7 @@ import java.util.Scanner;
 <span class="fc bfc" id="L502" title="All 2 branches covered.">            if (libro.calcularDescuento() &gt; 0) {</span>
 <span class="fc" id="L503">                librosConDescuento.add(libro);</span>
             }
-        }
+<span class="fc" id="L505">        }</span>
         
 <span class="fc" id="L507">        return librosConDescuento;</span>
     }
@@ -515,7 +515,7 @@ import java.util.Scanner;
 <span class="fc" id="L515">            double descuento = libro.calcularDescuento();</span>
 <span class="fc" id="L516">            double precioFinal = libro.getPrecio() * (1 - descuento);</span>
 <span class="fc" id="L517">            valorTotal += precioFinal;</span>
-        }
+<span class="fc" id="L518">        }</span>
         
 <span class="fc" id="L520">        return valorTotal;</span>
     }
@@ -530,7 +530,7 @@ import java.util.Scanner;
 <span class="fc" id="L530">            String claveDecada = decada + &quot;s&quot;;</span>
             
 <span class="fc" id="L532">            librosPorDecada.put(claveDecada, librosPorDecada.getOrDefault(claveDecada, 0) + 1);</span>
-        }
+<span class="fc" id="L533">        }</span>
         
 <span class="fc" id="L535">        return librosPorDecada;</span>
     }
@@ -557,7 +557,7 @@ import java.util.Scanner;
 <span class="fc bfc" id="L557" title="All 4 branches covered.">            if (libro.getPrecio() &gt; umbralAlto || libro.getPrecio() &lt; umbralBajo) {</span>
 <span class="fc" id="L558">                librosRevision.add(libro);</span>
             }
-        }
+<span class="fc" id="L560">        }</span>
         
 <span class="fc" id="L562">        return librosRevision;</span>
     }

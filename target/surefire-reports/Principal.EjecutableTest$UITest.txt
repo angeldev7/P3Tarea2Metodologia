@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: Principal.EjecutableTest$UITest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 s - in Principal.EjecutableTest$UITest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 s - in Principal.EjecutableTest$UITest
