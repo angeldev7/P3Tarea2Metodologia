@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+        
+        .piramide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .nivel {
+            text-align: center;
+            padding: 20px;
+            margin: 2px;
+            border: 2px solid #333;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        #nivel1 {
+            width: 200px;
+            background: #ffcdd2;
+        }
+        
+        #nivel2 {
+            width: 300px;
+            background: #ffecb3;
+        }
+        
+        #nivel3 {
+            width: 400px;
+            background: #c8e6c9;
+        }
+        
+        #nivel4 {
+            width: 500px;
+            background: #bbdefb;
+        }
+        
+        .base {
+            margin-top: 40px;
+            padding: 15px;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PIRÁMIDE DE PRUEBAS</h1>
+    
+    <div class="piramide">
+        <div class="nivel" id="nivel1">
+            UI/Aceptación (2%)<br>
+            <small>Costo: Muy Alto | Velocidad: Lenta</small>
+        </div>
+        <div class="nivel" id="nivel2">
+            Sistema E2E (8%)<br>
+            <small>Costo: Alto | Velocidad: Media</small>
+        </div>
+        <div class="nivel" id="nivel3">
+            Integración (20%)<br>
+            <small>Costo: Medio | Velocidad: Rápida</small>
+        </div>
+        <div class="nivel" id="nivel4">
+            Unitarias (70%)<br>
+            <small>Costo: Bajo | Velocidad: Muy Rápida</small>
+        </div>
+    </div>
+    
+    <div class="base">
+        Base sólida para detección temprana de defectos
+    </div>
+</body>
+</html>
