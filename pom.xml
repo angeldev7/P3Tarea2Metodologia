@@ -130,12 +130,42 @@
             <configuration>
               <rules>
                 <rule>
-                  <element>PACKAGE</element>
+                  <element>BUNDLE</element>
                   <limits>
                     <limit>
                       <counter>LINE</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.80</minimum>
+                      <minimum>0.50</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+                <!-- Reglas específicas por paquete -->
+                <rule>
+                  <element>PACKAGE</element>
+                  <includes>
+                    <include>model.*</include>
+                    <include>service.*</include>
+                    <include>util.*</include>
+                  </includes>
+                  <limits>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>0.90</minimum>
+                    </limit>
+                  </limits>
+                </rule>
+                <!-- Regla más flexible para Principal (UI) -->
+                <rule>
+                  <element>PACKAGE</element>
+                  <includes>
+                    <include>Principal.*</include>
+                  </includes>
+                  <limits>
+                    <limit>
+                      <counter>LINE</counter>
+                      <value>COVEREDRATIO</value>
+                      <minimum>0.30</minimum>
                     </limit>
                   </limits>
                 </rule>

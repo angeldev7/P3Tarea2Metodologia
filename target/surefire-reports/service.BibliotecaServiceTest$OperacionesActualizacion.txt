@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: service.BibliotecaServiceTest$OperacionesActualizacion
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s - in service.BibliotecaServiceTest$OperacionesActualizacion
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 s - in service.BibliotecaServiceTest$OperacionesActualizacion

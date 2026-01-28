@@ -20,8 +20,8 @@ public class Libro {
 <span class="fc" id="L20">        this.disponible = true;</span>
 <span class="fc" id="L21">    }</span>
 
-<span class="fc" id="L23">    public Libro(String isbn, String titulo, String autor, LocalDate fechaPublicacion, </span>
-                 int numeroPaginas, double precio) {
+    public Libro(String isbn, String titulo, String autor, LocalDate fechaPublicacion, 
+<span class="fc" id="L24">                 int numeroPaginas, double precio) {</span>
 <span class="fc" id="L25">        this.isbn = isbn;</span>
 <span class="fc" id="L26">        this.titulo = titulo;</span>
 <span class="fc" id="L27">        this.autor = autor;</span>
@@ -133,9 +133,9 @@ public class Libro {
     public boolean esValido() {
 <span class="pc bpc" id="L134" title="2 of 6 branches missed.">        return isbn != null &amp;&amp; !isbn.trim().isEmpty() &amp;&amp;</span>
 <span class="pc bpc" id="L135" title="2 of 4 branches missed.">               titulo != null &amp;&amp; !titulo.trim().isEmpty() &amp;&amp;</span>
-<span class="pc bpc" id="L136" title="2 of 4 branches missed.">               autor != null &amp;&amp; !autor.trim().isEmpty() &amp;&amp;</span>
-<span class="pc bpc" id="L137" title="1 of 2 branches missed.">               numeroPaginas &gt; 0 &amp;&amp;</span>
-<span class="fc" id="L138">               precio &gt;= 0;</span>
+<span class="pc bpc" id="L136" title="3 of 6 branches missed.">               autor != null &amp;&amp; !autor.trim().isEmpty() &amp;&amp;</span>
+               numeroPaginas &gt; 0 &amp;&amp;
+               precio &gt;= 0;
     }
 
     @Override
